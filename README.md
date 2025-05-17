@@ -8,7 +8,7 @@ Attendence should be marked d.
 
 ### You must set up your first sheet like this:
 
-![Student Attendance Table](assets/students.png)
+![Student Table](public/student.png)
 
 # To run the project:
 
