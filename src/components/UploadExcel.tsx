@@ -1,0 +1,68 @@
+import { useState } from "react";
+import type { ChangeEvent } from "react";
+import * as XLSX from "xlsx";
+
+interface UploadExcelProps {
+  onStudentsUpdate: (students: string[]) => void;
+}
+
+const UploadExcel: React.FC<UploadExcelProps> = ({ onStudentsUpdate }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setIsLoading(true);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = new Uint8Array(e.target?.result as ArrayBuffer);
+        const workbook = XLSX.read(data, { type: "array" });
+
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const rows = XLSX.utils.sheet_to_json(sheet, {
+          header: 1,
+        }) as string[][];
+
+        const headerRow = rows[2];
+        const latestColumnIndex = headerRow.length - 1;
+        const students = rows
+          .slice(3)
+          .filter((row) => {
+            const value = row[latestColumnIndex];
+            return typeof value === "string" && value.toLowerCase() === "d";
+          })
+          .map((row) => row[1])
+          .filter(Boolean) as string[];
+
+        onStudentsUpdate(students);
+        setIsLoading(false);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  };
+
+  return (
+    <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+      <div className="text-center">
+        <label className="block text-lg font-medium text-gray-200 mb-4">
+          Įkelkite Excel failą su studentų sąrašu:
+        </label>
+        <input
+          type="file"
+          accept=".xlsx, .xls"
+          onChange={handleFileUpload}
+          className="block mx-auto w-full max-w-xs text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition"
+        />
+      </div>
+      {isLoading && (
+        <div className="flex justify-center items-center mt-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <p className="ml-2 text-blue-400 font-medium">Kraunama...</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default UploadExcel;
