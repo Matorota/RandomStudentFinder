@@ -14,8 +14,9 @@ There is an example in the src files
 
 # To run the project:
 
+download project
+### Terminal
 ```js
-// eslint.config.js
 npm install
 npm run dev
 ```
