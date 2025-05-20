@@ -32,7 +32,7 @@ const UploadExcel: React.FC<UploadExcelProps> = ({ onStudentsUpdate }) => {
         const data = new Uint8Array(e.target?.result as ArrayBuffer);
         const workbook = XLSX.read(data, { type: "array" });
 
-        const sheetName = workbook.SheetNames[2]; // Sheet 3 (zero-based index)
+        const sheetName = workbook.SheetNames[1]; // Sheet 3 (zero-based index)
         if (!sheetName) {
           console.error("Sheet 3 does not exist in the workbook.");
           setIsLoading(false);
@@ -71,7 +71,6 @@ const UploadExcel: React.FC<UploadExcelProps> = ({ onStudentsUpdate }) => {
 
         console.log("Latest Column Index with 'd':", latestColumnIndex);
 
-        // Filter students who have "d" in the latest column
         const students = rows
           .slice(3) // Skip the first three rows (header rows)
           .filter((row) => {
