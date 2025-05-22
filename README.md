@@ -1,6 +1,10 @@
 # React + TypeScript + Vite
 
 
+## Web link to project:
+
+https://random-student-finder.vercel.app/
+
 ## How it works 
 
 You select a excel file with students and attendence.
