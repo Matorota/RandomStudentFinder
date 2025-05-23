@@ -11,9 +11,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-6">
-      <div className="bg-gray-800 text-gray-200 rounded-lg shadow-lg p-8 w-full max-w-2xl">
-        <h1 className="text-4xl font-bold mb-8 text-center text-blue-500">
+    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+      <div className="bg-blue-200 text-gray-800 rounded-lg shadow-lg p-8 w-full max-w-2xl">
+        <h1 className="text-4xl font-bold mb-8 text-center text-gray-600">
           Saityno Paslaugos
         </h1>
         <UploadExcel onStudentsUpdate={handleStudentsUpdate} />
