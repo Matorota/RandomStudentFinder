@@ -22,3 +22,4 @@ download project
 npm install
 npm run dev
 ```
+### this was done for college project to select the student ho will speak next.
