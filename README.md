@@ -22,4 +22,4 @@ download project
 npm install
 npm run dev
 ```
-### This is made for college project to select the student ho will speak next.
+### This is made for college project to select the student ho will answer the question given by the lecturer.
